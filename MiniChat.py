@@ -4,11 +4,13 @@ import socket
 def signin():
     server = socket.socket()         # 创建 socket 对象
     host = socket.gethostname() # 获取本地主机名
-    port = 12345                # 设置端口号
+    port = 8001                # 设置端口号
     
     server.connect((host, port))
-    print('conected', host, ':', port)
-    server.send('114514')
+    print('连接成功')
+    inData = '1283789478'
+    server.send(inData.encode('utf-8'))
+    print('发送成功！', inData)
     server.close()
 
 root = tk.Tk()

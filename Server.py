@@ -1,15 +1,32 @@
 import socket
+import tkinter as tk
+from time import ctime
+import threading
+
+def prints(text):
+    rootText.insert(tk.END, text)
+
+def mainloop():
+    root.mainloop()
+
+root = tk.Tk()
+root.title('Mini Chat Server')
+rootText = tk.Text(root, width=30, height=5)
+rootText.pack()
+
+threading.Thread(target=mainloop)
 
 server = socket.socket()
 host = socket.gethostname()
-port = 0
+port = 8001
 server.bind((host, port))
-print('连接已开启：', host, ':', port)
+prints('启动服务监听：{}:{}'.format(host, port))
 server.listen(5)
 
 while True:
     c,addr = server.accept()
-    print('连接地址：', addr)
-    socket.commloopß
-    print(c.recv(1024))
+    prints('用户：{} 接入系统'.format(addr))
+    data = c.recv(1024)
+    print('data=%s' % data)
+    prints('[{}]接收数据：{!r}'.format(ctime(), data.decode('utf-8')))
     c.close()
