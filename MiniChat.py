@@ -13,9 +13,13 @@ def signin():
     
     s.connect((host, port))
     print('[{}]连接成功'.format(ctime()))
+
     sendData = json.dumps((0, account.get(), password.get())) 
     s.send(sendData.encode('utf-8'))
     print('[{}]成功发送登录请求'.format(ctime()))
+
+    flag = s.recv(1024).decode('utf-8')
+
     s.close()
 
 root = tk.Tk()
