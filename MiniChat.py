@@ -3,6 +3,7 @@ import socket
 from time import ctime
 import json
 import tkinter.messagebox as messagebox
+import base64
 
 class MiniChat():
     def prints(self, text):
@@ -27,6 +28,13 @@ class MiniChat():
             self.prints('登录成功')
             self.account = self.account_entry.get()
             self.password = self.password_entry.get()
+            self.data['account'] = self.account
+            self.data['password'] = self.password
+            with open('data.dat', 'wb') as f:
+                dat = json.dumps(self.data).encode()
+                f.write(base64.b64encode(dat))
+                f.close()
+            self.prints(self.data)
             messagebox.showinfo('信息', '登录成功！')
         else:
             self.prints('登录失败，用户名或密码错误')
@@ -54,12 +62,27 @@ class MiniChat():
             self.prints('注册成功')
             self.account = self.account_entry.get()
             self.password = self.password_entry.get()
+            self.data['account'] = self.account
+            self.data['password'] = self.password
+            with open('data.dat', 'wb') as f:
+                dat = json.dumps(self.data).encode()
+                f.write(base64.b64encode(dat))
+                f.close()
+            self.prints(self.data)
             messagebox.showinfo('信息', '注册成功！')
         elif give_back == '1':
             self.prints('注册失败，该用户名已经被注册')
             messagebox.showerror('错误', '该用户名已经被注册')
 
     def sign_main(self):
+        with open('data.dat', 'rb') as f:
+            dat = f.read()
+            baseen = base64.b64decode(dat)
+            base = baseen.decode()
+            self.data = json.loads(base)
+
+        self.prints(self.data)
+
         root = tk.Tk()
         root.title('Mini Chat')
 
@@ -71,6 +94,8 @@ class MiniChat():
 
         self.password_entry = tk.Entry(root, width=20, show='*')
         self.password_entry.grid(row=1, column=1)
+
+        self.remember_password_checkbutton = tk.Checkbutton(root, text='记住密码')
 
         signin_button = tk.Button(root, text='登录', command=self.signin)
         signin_button.grid(row=2, column=0)
