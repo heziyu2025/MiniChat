@@ -130,3 +130,4 @@ dmypy.json
 
 Server/
 data.json
+base64encoder.py
