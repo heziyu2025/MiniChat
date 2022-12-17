@@ -93,12 +93,16 @@ class MiniChat():
         self.change_dat()
 
     def log_main(self):
-        with open('data.dat', 'rb') as f:
-            dat = f.read()
-            baseen = base64.b64decode(dat)
-            base = baseen.decode()
-            self.data = json.loads(base)
-            f.close()
+        try:
+            with open('data.dat', 'rb') as f:
+                dat = f.read()
+                baseen = base64.b64decode(dat)
+                base = baseen.decode()
+                self.data = json.loads(base)
+                f.close()
+        except:
+            with open('data.dat', 'w') as f:
+                f.write('eyJyZW1lbWJlciBwYXNzd29yZCI6IHRydWUsICJhdXRvIHNpZ25pbiI6IGZhbHNlLCAiYWNjb3VudCI6ICIiLCAicGFzc3dvcmQiOiAiIiwgImZyaWVuZHMiOiB7fX0=')
 
         self.prints(self.data)
 
@@ -153,6 +157,9 @@ class MiniChat():
     def mainApp(self):
         self.root_main = tk.Tk()
         self.root_main.title('Mini Chat')
+
+
+
         self.root_main.mainloop()
 
 MiniChat()

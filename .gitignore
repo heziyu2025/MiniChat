@@ -128,6 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+base64encoder.py
+data.dat
 Server/
 data.json
-base64encoder.py
