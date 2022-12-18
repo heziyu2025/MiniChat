@@ -156,12 +156,12 @@ class MiniChat():
         login = Login()
         self.data = login.data
 
-        self.root_main = tk.Tk()
-        self.root_main.title('Mini Chat')
+        self.root = tk.Tk()
+        self.root.title('Mini Chat')
 
-        top_pane = ttk.PanedWindow(self.root_main, orient="vertical")
+        top_frame = ttk.Frame(self.root)
 
-        top_pane.add(tk.Label(top_pane, text='请选择：'))
+        tk.Label(top_frame, text='请选择：').pack(side=tk.LEFT)
 
         friends_name = []
         self.friends = self.data['friends']
@@ -170,11 +170,11 @@ class MiniChat():
 
         friends_name = tuple(friends_name)
 
-        friend_list_box = ttk.Combobox(top_pane, values=friends_name)
-        top_pane.add(friend_list_box)
+        friend_list_box = ttk.Combobox(top_frame, values=friends_name)
+        friend_list_box.pack(side=tk.LEFT)
 
-        top_pane.pack()
+        top_frame.pack()
 
-        self.root_main.mainloop()
+        self.root.mainloop()
 
 MiniChat()
