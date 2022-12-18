@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 base64encoder.py
-data.dat
-Server/
 data.json
+Server/
+data
